@@ -51,7 +51,7 @@ public class Node implements NodeInfoInt {
     }
     public Node findSuccessorFor(int idNode){
         //range
-        if (checkBelongingToTheInterval(this.id,this.successor.getId() + 1,idNode)){
+        if (checkBelongingToTheInterval(this.id,this.successor.getId(),idNode)){
             return this.successor;
         }
         else{
@@ -117,10 +117,10 @@ public class Node implements NodeInfoInt {
         this.isAlive = false;
     }
     public void fixFingers(){
-        this.fingers.clear();
+        //this.fingers.clear();
         for (int i = 0 ; i < this.network.getM(); i ++){
             int fingerIndex = (int) (this.id + Math.pow(2, i) % Math.pow(2, this.network.getM()));
-             fingers.add(this.findSuccessorFor(fingerIndex));
+             fingers.add(i, this.findSuccessorFor(fingerIndex));
         }
     }
     protected boolean checkBelongingToTheInterval(int firstId, int secondId, int idToCheck) {
@@ -131,7 +131,7 @@ public class Node implements NodeInfoInt {
          if (idToCheck <= firstId){
              idToCheck += Math.pow(2,network.getM());
          }
-        if (idToCheck > firstId && idToCheck < secondIdForCheckBelonging) return true;
+        if (idToCheck >= firstId && idToCheck <= secondIdForCheckBelonging) return true;
         else return false;
     }
     protected void addFinger(Node finger){

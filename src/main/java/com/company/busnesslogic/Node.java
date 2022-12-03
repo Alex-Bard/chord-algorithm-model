@@ -60,7 +60,7 @@ public class Node implements NodeInfoInt {
     }
     public Node findClosestPrecedingNodeFor(int idNode){
         int m = this.network.getM();
-        for (int i = m - 1; i >= 0; i--){
+        for (int i = fingers.size() - 1; i >= 0; i--){
             if (checkBelongingToTheInterval(this.id,idNode,this.fingers.get(i).getId())){
                 return this.fingers.get(i);
             }
@@ -70,6 +70,7 @@ public class Node implements NodeInfoInt {
     public void stabilize(){
         this.checkSuccessor();
         this.checkPredecessor();
+        if (this.predecessor == null) notifyNode(this);
         int idPredecessorForSuccessor = this.successor.getPredecessor().getId();
         if (checkBelongingToTheInterval(this.id,this.successor.getId(),idPredecessorForSuccessor)){
             this.successor = this.successor.getPredecessor();
@@ -117,10 +118,11 @@ public class Node implements NodeInfoInt {
         this.isAlive = false;
     }
     public void fixFingers(){
-        //this.fingers.clear();
+        this.fingers.clear();
         for (int i = 0 ; i < this.network.getM(); i ++){
             int fingerIndex = (int) (this.id + Math.pow(2, i) % Math.pow(2, this.network.getM()));
-             fingers.add(i, this.findSuccessorFor(fingerIndex));
+            fingerIndex %= Math.pow(2,network.getM());
+            fingers.add( this.findSuccessorFor(fingerIndex));
         }
     }
     protected boolean checkBelongingToTheInterval(int firstId, int secondId, int idToCheck) {

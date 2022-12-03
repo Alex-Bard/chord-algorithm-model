@@ -40,8 +40,10 @@ public class Main {
         String[] args = command.split(" ");
         if (args[0].equals("addNode")){
             network.addNode(Integer.parseInt(args[1]));
+            System.out.println("node added successfully");
         }else if(args[0].equals("offNode")){
             network.removeNode(Integer.parseInt(args[1]));
+            System.out.println("node offed successfully");
         }
         else if(args[0].equals("init")){
             network = new Network(Integer.parseInt(args[1]));
@@ -50,6 +52,10 @@ public class Main {
         }
         else if (args[0].equals("printNodesStats")){
             System.out.println(viewer.getNetworkStats());
+        }
+        else if (args[0].equals("stab")){
+            network.stabilize();
+            System.out.println("network stabilize successfully");
         }
         else if (args[0].equals("help")){
             System.out.println("it's help)");

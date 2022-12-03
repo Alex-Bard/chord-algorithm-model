@@ -15,10 +15,11 @@ public class NodeInfoViewer implements NodeInfoViewerInt {
         StringBuilder res = new StringBuilder();
         do {
             res.append("Node id: " + currentNode.getId() + "\n");
-            res.append("Node successor id: " + currentNode.getSuccessor().getId() + "\n");
-            res.append("Node predecessor id: " + currentNode.getPredecessor().getId() + "\n");
-            res.append("Node fingers: " + currentNode.getFingers()
+            res.append("    successor id: " + currentNode.getSuccessor().getId() + "\n");
+            res.append("    predecessor id: " + currentNode.getPredecessor().getId() + "\n");
+            res.append("    fingers: " + currentNode.getFingers()
                     .stream().map(f -> f.getId() + " ").collect(Collectors.joining()) + "\n");
+            currentNode = currentNode.getSuccessor();
         }while (currentNode.getId() != mainNode.getId());
         return res.toString();
     }

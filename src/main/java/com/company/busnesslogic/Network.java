@@ -38,16 +38,18 @@ public class Network implements ChordRingInt{
     }
     public void removeNode(int idNode){
         Node nodeToRemove = new Node(idNode,this);
+        List<Node> nodesFromSet = new LinkedList<>(this.nodes);
         if (idNode < 1 || idNode > Math.pow(2,m))
             throw new IndexOutOfBoundsException("Index " + idNode + " is out of range from 0 to " + Math.pow(2,m));
         if (!this.nodes.contains(nodeToRemove))
             throw new IllegalArgumentException("Node with index " + idNode + " not found");
-        for (Node node : this.nodes){
-            if (node.equals(nodeToRemove)) {
-                node.off();
-                this.nodes.remove(node);
+        for (int i = 0; i < nodesFromSet.size(); i++){
+            if (nodesFromSet.get(i).equals(nodeToRemove)){
+                nodesFromSet.get(i).off();
+                nodesFromSet.remove(i);
             }
         }
+        this.nodes = new LinkedHashSet<>(nodesFromSet);
         this.stabilize();
     }
 

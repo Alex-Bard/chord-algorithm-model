@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class Node implements NodeInfoInt {
-    private ChordRingInt network;
-    private int id;
+    private final ChordRingInt network;
+    private final int id;
     private boolean isAlive;
     private Node predecessor;
     private Node successor;
@@ -59,7 +59,6 @@ public class Node implements NodeInfoInt {
         }
     }
     public Node findClosestPrecedingNodeFor(int idNode){
-        int m = this.network.getM();
         for (int i = fingers.size() - 1; i >= 0; i--){
             if (checkBelongingToTheInterval(this.id,idNode,this.fingers.get(i).getId())){
                 return this.fingers.get(i);
@@ -109,9 +108,7 @@ public class Node implements NodeInfoInt {
 
     @Override
     public List<NodeInfoInt> getFingers() {
-        List<NodeInfoInt> result = new LinkedList<>();
-        result.addAll(this.fingers);
-        return result;
+        return new LinkedList<>(this.fingers);
     }
 
     public void off(){
@@ -133,8 +130,7 @@ public class Node implements NodeInfoInt {
          if (idToCheck <= firstId){
              idToCheck += Math.pow(2,network.getM());
          }
-        if (idToCheck >= firstId && idToCheck <= secondIdForCheckBelonging) return true;
-        else return false;
+        return idToCheck >= firstId && idToCheck <= secondIdForCheckBelonging;
     }
     protected void addFinger(Node finger){
         this.fingers.add(finger);

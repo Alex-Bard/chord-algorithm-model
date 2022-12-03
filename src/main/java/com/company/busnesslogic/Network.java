@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Network implements ChordRingInt{
     private Set<Node> nodes;
-    private Node firstNode;
-    private int m;
+    private final Node firstNode;
+    private final int m;
 
     public Network(int m) {
         this.nodes = new LinkedHashSet<>();

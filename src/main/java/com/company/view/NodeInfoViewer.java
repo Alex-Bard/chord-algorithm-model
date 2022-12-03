@@ -1,12 +1,11 @@
 package com.company.view;
 
 import com.company.busnesslogic.NodeInfoInt;
-import org.w3c.dom.Node;
 
 import java.util.stream.Collectors;
 
 public class NodeInfoViewer implements NodeInfoViewerInt {
-    private NodeInfoInt mainNode;
+    private final NodeInfoInt mainNode;
     public NodeInfoViewer(NodeInfoInt mainNode){
         this.mainNode = mainNode;
     }

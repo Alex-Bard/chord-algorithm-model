@@ -46,12 +46,12 @@ class NodeTest {
         ChordRingInt networkMock = Mockito.mock(Network.class);
         Mockito.when(networkMock.getM()).thenReturn(3);
         Node mainNode= new Node(0,networkMock);
-        assertEquals(true, mainNode.checkBelongingToTheInterval(0,3,2));
-        assertEquals(false, mainNode.checkBelongingToTheInterval(0,3,4));
-        assertEquals(true, mainNode.checkBelongingToTheInterval(6,2,0));
-        assertEquals(false, mainNode.checkBelongingToTheInterval(6,2,3));
-        assertEquals(true, mainNode.checkBelongingToTheInterval(6,0,7));
-        assertEquals(true, mainNode.checkBelongingToTheInterval(0,0,7));
+        assertTrue(mainNode.checkBelongingToTheInterval(0, 3, 2));
+        assertFalse(mainNode.checkBelongingToTheInterval(0, 3, 4));
+        assertTrue(mainNode.checkBelongingToTheInterval(6, 2, 0));
+        assertFalse(mainNode.checkBelongingToTheInterval(6, 2, 3));
+        assertTrue(mainNode.checkBelongingToTheInterval(6, 0, 7));
+        assertTrue(mainNode.checkBelongingToTheInterval(0, 0, 7));
     }
 
     @Test
@@ -138,7 +138,7 @@ class NodeTest {
         expected.add(2);
         expected.add(0);
         assertEquals(expected, mainNode.getFingers().stream()
-                .mapToInt(node-> node.getId()).boxed()
+                .mapToInt(NodeInfoInt::getId).boxed()
                 .collect(Collectors.toList()));
 
         expected.clear();
@@ -147,7 +147,7 @@ class NodeTest {
         expected.add(0);
         node2.fixFingers();
         assertEquals(expected, node2.getFingers().stream()
-                .mapToInt(node-> node.getId()).boxed()
+                .mapToInt(NodeInfoInt::getId).boxed()
                 .collect(Collectors.toList()));
 
         mainNode = new Node(0, networkMock);
@@ -168,7 +168,7 @@ class NodeTest {
         expected.add(5);
         expected.add(5);
         assertEquals(expected, mainNode.getFingers().stream()
-                .mapToInt(node-> node.getId()).boxed()
+                .mapToInt(NodeInfoInt::getId).boxed()
                 .collect(Collectors.toList()));
 
         expected.clear();
@@ -177,41 +177,7 @@ class NodeTest {
         expected.add(5);
         node2.fixFingers();
         assertEquals(expected, node2.getFingers().stream()
-                .mapToInt(node-> node.getId()).boxed()
+                .mapToInt(NodeInfoInt::getId).boxed()
                 .collect(Collectors.toList()));
-        //assertEquals(2, mainNode.findSuccessorFor(2).getId());
-
-//        Node node4 = new Node(4,networkMock);
-//        Node node6 = new Node(6,networkMock);
-//        mainNode = new Node(0, networkMock);
-//        node2 = new Node(2,networkMock);
-//
-//        mainNode.setSuccessor(node2);
-//        mainNode.setPredecessor(node6);
-//        mainNode.addFinger(node2);
-//        mainNode.addFinger(node2);
-//        mainNode.addFinger(node4);
-//
-//        node2.setSuccessor(node4);
-//        node2.setPredecessor(mainNode);
-//        node2.addFinger(node4);
-//        node2.addFinger(node4);
-//        node2.addFinger(node6);
-//
-//        node4.setSuccessor(node6);
-//        node4.setPredecessor(node2);
-//        node4.addFinger(node6);
-//        node4.addFinger(node6);
-//        node4.addFinger(mainNode);
-//
-//        node6.setSuccessor(mainNode);
-//        node6.setPredecessor(node4);
-//        node6.addFinger(mainNode);
-//        node6.addFinger(mainNode);
-//        node6.addFinger(node2);
-//
-//        assertEquals(0, mainNode.findSuccessorFor(7).getId());
-//        assertEquals(4, mainNode.findSuccessorFor(3).getId());
-//        assertEquals(6, mainNode.findSuccessorFor(5).getId());
     }
 }

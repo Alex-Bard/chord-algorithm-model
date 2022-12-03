@@ -3,15 +3,12 @@ package com.company;
 import com.company.busnesslogic.Network;
 import com.company.view.NodeInfoViewer;
 import com.company.view.NodeInfoViewerInt;
-
-import java.util.List;
-import java.util.PrimitiveIterator;
 import java.util.Scanner;
 
 public class Main {
     private static Network network;
     private static NodeInfoViewerInt viewer;
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
         while (true){
             String command;
@@ -31,37 +28,38 @@ public class Main {
         }
     }
     private static boolean isExit(String command){
-        if (command.equals("exit")){
-            return true;
-        }
+        if (command.equals("exit")) return true;
         else return false;
     }
-    private static void processCommand(String command) throws Exception{
+    private static void processCommand(String command) {
         String[] args = command.split(" ");
-        if (args[0].equals("addNode")){
-            network.addNode(Integer.parseInt(args[1]));
-            System.out.println("node added successfully");
-        }else if(args[0].equals("offNode")){
-            network.removeNode(Integer.parseInt(args[1]));
-            System.out.println("node offed successfully");
-        }
-        else if(args[0].equals("init")){
-            network = new Network(Integer.parseInt(args[1]));
-            viewer = new NodeInfoViewer(network.getFirstNode());
-            System.out.println("network initialized successfully");
-        }
-        else if (args[0].equals("printNodesStats")){
-            System.out.println(viewer.getNetworkStats());
-        }
-        else if (args[0].equals("stab")){
-            network.stabilize();
-            System.out.println("network stabilize successfully");
-        }
-        else if (args[0].equals("help")){
-            System.out.println("it's help)");
-        }
-        else {
-            System.out.println("Command not recognized. Please, use \"help\" to view list of commands");
+        switch (args[0]) {
+            case "addNode":
+                network.addNode(Integer.parseInt(args[1]));
+                System.out.println("node added successfully");
+                break;
+            case "offNode":
+                network.removeNode(Integer.parseInt(args[1]));
+                System.out.println("node offed successfully");
+                break;
+            case "init":
+                network = new Network(Integer.parseInt(args[1]));
+                viewer = new NodeInfoViewer(network.getFirstNode());
+                System.out.println("network initialized successfully");
+                break;
+            case "printNodesStats":
+                System.out.println(viewer.getNetworkStats());
+                break;
+            case "stab":
+                network.stabilize();
+                System.out.println("network stabilize successfully");
+                break;
+            case "help":
+                System.out.println("it's help)");
+                break;
+            default:
+                System.out.println("Command not recognized. Please, use \"help\" to view list of commands");
+                break;
         }
     }
 }

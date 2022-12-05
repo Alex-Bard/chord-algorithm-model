@@ -1,5 +1,9 @@
-package com.company.busnesslogic;
+package com.company.busnesslogic.node;
 
+import com.company.busnesslogic.ChordRingInt;
+import com.company.busnesslogic.Network;
+import com.company.busnesslogic.node.Node;
+import com.company.busnesslogic.node.NodeInfoInt;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

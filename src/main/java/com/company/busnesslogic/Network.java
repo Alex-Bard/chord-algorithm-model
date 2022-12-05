@@ -1,10 +1,13 @@
 package com.company.busnesslogic;
 
+import com.company.busnesslogic.node.Node;
+import com.company.busnesslogic.node.NodeInt;
+
 import java.util.*;
 
 public class Network implements ChordRingInt{
-    private Set<Node> nodes;
-    private final Node firstNode;
+    private Set<NodeInt> nodes;
+    private final NodeInt firstNode;
     private final int m;
 
     public Network(int m) {
@@ -12,14 +15,12 @@ public class Network implements ChordRingInt{
         this.m = m;
         this.firstNode = new Node(0, this);
         this.nodes.add(firstNode);
-        this.firstNode.setSuccessor(firstNode);
-        this.firstNode.setPredecessor(firstNode);
         this.stabilize();
     }
     public void addNode(int nodeIndex){
         Node nodeToAdd = new Node(nodeIndex,this);
         if (nodeIndex < 1 || nodeIndex > Math.pow(2,m))
-            throw new IndexOutOfBoundsException("Index " + nodeIndex + " is out of range from 0 to " + Math.pow(2,m));
+            throw new IndexOutOfBoundsException("Index " + nodeIndex + " is out of range from 0 to " + (int)Math.pow(2,m));
         if (this.nodes.contains(nodeToAdd))
             throw new IllegalArgumentException("Node with index " + nodeIndex + " already exists");
         nodeToAdd.join(this.firstNode);
@@ -27,7 +28,7 @@ public class Network implements ChordRingInt{
         this.stabilize();
     }
     public void stabilize(){
-        Iterator<Node> nodeIterator = this.nodes.iterator();
+        Iterator<NodeInt> nodeIterator = this.nodes.iterator();
         while (nodeIterator.hasNext()){
             nodeIterator.next().stabilize();
         }
@@ -38,7 +39,7 @@ public class Network implements ChordRingInt{
     }
     public void removeNode(int idNode){
         Node nodeToRemove = new Node(idNode,this);
-        List<Node> nodesFromSet = new LinkedList<>(this.nodes);
+        List<NodeInt> nodesFromSet = new LinkedList<>(this.nodes);
         if (idNode < 1 || idNode > Math.pow(2,m))
             throw new IndexOutOfBoundsException("Index " + idNode + " is out of range from 0 to " + Math.pow(2,m));
         if (!this.nodes.contains(nodeToRemove))
@@ -64,7 +65,7 @@ public class Network implements ChordRingInt{
     }
 
     @Override
-    public Node getFirstNode() {
+    public NodeInt getFirstNode() {
         return this.firstNode;
     }
 }

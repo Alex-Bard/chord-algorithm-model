@@ -1,4 +1,4 @@
-package com.company.busnesslogic;
+package com.company.busnesslogic.node;
 
 import java.util.List;
 

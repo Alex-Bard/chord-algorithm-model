@@ -1,10 +1,12 @@
-package com.company.busnesslogic;
+package com.company.busnesslogic.node;
+
+import com.company.busnesslogic.ChordRingInt;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class Node implements NodeInfoInt {
+public class Node implements NodeInfoInt, NodeInt {
     private final ChordRingInt network;
     private final int id;
     private boolean isAlive;
@@ -44,12 +46,12 @@ public class Node implements NodeInfoInt {
         this.isAlive = true;
     }
 
-    public void join(Node nodeInChordRing){
-        this.successor = nodeInChordRing.findSuccessorFor(this.id);
+    public void join(NodeInt nodeInChordRing){
+        this.successor = ((Node)nodeInChordRing).findSuccessorFor(this.id);
         this.successor.notifyNode(this);
         fixFingers();
     }
-    public Node findSuccessorFor(int idNode){
+    protected Node findSuccessorFor(int idNode){
         //range
         if (checkBelongingToTheInterval(this.id,this.successor.getId(),idNode)){
             return this.successor;
@@ -58,7 +60,7 @@ public class Node implements NodeInfoInt {
            return findClosestPrecedingNodeFor(idNode).findSuccessorFor(idNode);
         }
     }
-    public Node findClosestPrecedingNodeFor(int idNode){
+    protected Node findClosestPrecedingNodeFor(int idNode){
         for (int i = fingers.size() - 1; i >= 0; i--){
             if (checkBelongingToTheInterval(this.id,idNode,this.fingers.get(i).getId())){
                 return this.fingers.get(i);
@@ -89,7 +91,7 @@ public class Node implements NodeInfoInt {
         }
     }
     private void checkSuccessor(){
-        if (!this.successor.isAlive){
+        if (this.successor == null || !this.successor.isAlive){
             for (Node finger : this.fingers){
                 if (finger.getId() != this.successor.getId()) {
                     this.successor = finger;

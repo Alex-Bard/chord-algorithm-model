@@ -1,6 +1,6 @@
 package com.company.view;
 
-import com.company.busnesslogic.NodeInfoInt;
+import com.company.busnesslogic.node.NodeInfoInt;
 
 import java.util.stream.Collectors;
 

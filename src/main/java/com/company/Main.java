@@ -1,7 +1,7 @@
 package com.company;
 
 
-import com.company.busnesslogic.face.ConsoleFace;
+import com.company.face.ConsoleFace;
 
 public class Main {
     public static void main(String[] args) {

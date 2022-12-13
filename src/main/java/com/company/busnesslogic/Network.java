@@ -19,8 +19,9 @@ public class Network implements ChordRingInt{
     }
     public void addNode(int nodeIndex){
         Node nodeToAdd = new Node(nodeIndex,this);
-        if (nodeIndex < 1 || nodeIndex > Math.pow(2,m))
-            throw new IndexOutOfBoundsException("Index " + nodeIndex + " is out of range from 0 to " + (int)Math.pow(2,m));
+        if (nodeIndex < 1 || nodeIndex >= Math.pow(2,m))
+            throw new IndexOutOfBoundsException("Index " + nodeIndex + " is out of range from 1 to "
+                    + (int)(Math.pow(2,m)));
         if (this.nodes.contains(nodeToAdd))
             throw new IllegalArgumentException("Node with index " + nodeIndex + " already exists");
         nodeToAdd.join(this.firstNode);
@@ -40,8 +41,9 @@ public class Network implements ChordRingInt{
     public void removeNode(int idNode){
         Node nodeToRemove = new Node(idNode,this);
         List<NodeInt> nodesFromSet = new LinkedList<>(this.nodes);
-        if (idNode < 1 || idNode > Math.pow(2,m))
-            throw new IndexOutOfBoundsException("Index " + idNode + " is out of range from 0 to " + Math.pow(2,m));
+        if (idNode < 1 || idNode >= Math.pow(2,m))
+            throw new IndexOutOfBoundsException("Index " + idNode + " is out of range from 1 to "
+                    + (int)(Math.pow(2,m) - 1));
         if (!this.nodes.contains(nodeToRemove))
             throw new IllegalArgumentException("Node with index " + idNode + " not found");
         for (int i = 0; i < nodesFromSet.size(); i++){

@@ -1,4 +1,4 @@
-package com.company.busnesslogic.face;
+package com.company.face;
 
 import com.company.busnesslogic.ChordRingInt;
 import com.company.busnesslogic.Network;
@@ -68,7 +68,8 @@ public class ConsoleFace {
                         "\"addNode {id}\" to add node to chord ring" + "\n" +
                         "\"offNode {id}\" to disable a node" + "\n" +
                         "\"printNodes\" to print nodes in chord ring" + "\n" +
-                        "\"init {m}\" to init chord ring with m param" + "\n");
+                        "\"init {m}\" to init chord ring with m param" + "\n" +
+                        "\"exit\" to exit" + "\n");
                 break;
             default:
                 System.out.println("Command not recognized. Please, use \"help\" to view list of commands");

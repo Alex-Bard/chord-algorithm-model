@@ -27,6 +27,7 @@ public class Network implements ChordRingInt{
         nodeToAdd.join(this.firstNode);
         this.nodes.add(nodeToAdd);
         this.stabilize();
+        this.stabilize();
     }
     public void stabilize(){
         Iterator<NodeInt> nodeIterator = this.nodes.iterator();
@@ -53,6 +54,7 @@ public class Network implements ChordRingInt{
             }
         }
         this.nodes = new LinkedHashSet<>(nodesFromSet);
+        this.stabilize();
         this.stabilize();
     }
 

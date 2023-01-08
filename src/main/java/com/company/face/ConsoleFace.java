@@ -40,8 +40,7 @@ public class ConsoleFace {
         }
     }
     private boolean isExit(String command){
-        if (command.equals("exit")) return true;
-        else return false;
+        return command.equals("exit");
     }
     private void processCommand(String command) {
         String[] args = command.split(" ");
@@ -52,7 +51,7 @@ public class ConsoleFace {
                 break;
             case "offNode":
                 network.removeNode(Integer.parseInt(args[1]));
-                System.out.println("node offed successfully");
+                System.out.println("node turned off successfully");
                 break;
             case "init":
                 network = new Network(Integer.parseInt(args[1]));

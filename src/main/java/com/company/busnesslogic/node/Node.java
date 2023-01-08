@@ -12,7 +12,7 @@ public class Node implements NodeInfoInt, NodeInt {
     private boolean isAlive;
     private Node predecessor;
     private Node successor;
-    private List<Node> fingers;
+    private final List<Node> fingers;
 
     public int getId() {
         return id;
@@ -34,11 +34,6 @@ public class Node implements NodeInfoInt, NodeInt {
         this.successor = successor;
     }
 
-    public Node(ChordRingInt network) {
-        this.id = network.getUniqueId();
-        this.network = network;
-        this.isAlive = true;
-    }
     public Node(int id, ChordRingInt network) {
         this.fingers = new LinkedList<>();
         this.id = id;
@@ -62,11 +57,11 @@ public class Node implements NodeInfoInt, NodeInt {
     }
     protected Node findClosestPrecedingNodeFor(int idNode){
         for (int i = fingers.size() - 1; i >= 0; i--){
-            if (checkBelongingToTheInterval(this.id,idNode,this.fingers.get(i).getId())){
+            if (checkBelongingToTheInterval(this.id,idNode - 1,this.fingers.get(i).getId())){
                 return this.fingers.get(i);
             }
         }
-        return this;
+        return this.successor;
     }
     public void stabilize(){
         this.checkSuccessor();
